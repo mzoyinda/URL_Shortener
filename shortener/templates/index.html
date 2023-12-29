@@ -1,0 +1,158 @@
+<head>
+  <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"
+  ></script>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body{
+      font-family: "Lato", sans-serif;
+      line-height: 1.5;
+      color: #111;
+      background-color: #010B15;
+    }
+    main {
+      margin-top: 15%;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+    }
+    
+    .container{
+      width: 100%;
+      max-width: 680px;
+      border: 2.5px solid #330867;
+      border-radius: 2.5px;
+      box-shadow: 0 10px 20px rgba(17, 17, 17, 0.125),
+        0 5px 5px rgba(17, 17, 17, 0.25);
+      background-image: linear-gradient(to top, #F095D8 0%, #33234C 100%);
+    }
+
+    h1 {
+      padding: 1rem;
+      color: white;
+    }
+    form{
+    height: 90px;
+    }
+
+    input,
+    button {
+      font-family: inherit;
+      line-height: inherit;
+      color: inherit;
+      border: 0;
+      padding: 1rem;
+    }
+
+    input {
+      box-sizing: border-box;
+      width: 100%;
+      background-color: #212138;
+      color: #fff;
+    }
+
+    .buttons {
+      display: flex;
+    }
+
+    button {
+      cursor: pointer;
+      flex: 1;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: capitalize;
+      background-color: transparent;
+      color: white;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    .hidden{
+      display: none;
+    }
+
+    .error{
+      display: block;
+      transition: all 0.3s ease-in;
+      min-height: 120px;
+      text-align: center;
+      background-color: #16162E;
+      color: #d6d5d4e3;
+      font-size: 0.8rem;
+      font-style: italic;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .url{
+      display: block;
+      transition: all 0.3s ease-in;
+      min-height: 120px;
+      text-align: center;
+      background-color: #16162E;
+      color: #fff;
+      font-style: italic;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<main>
+  <section class="container">
+    <h1>URL Shortener</h1>
+    <form id="post-form">
+      {% csrf_token %}
+      <input type="text" name="link" id="link" placeholder="Enter URL here" />
+      <div class="buttons">
+        <button type="submit" id="shorten">Shorten</button>
+      </div>
+    </form>
+    
+    <section id="section" class="hidden"><h2></h2></section>
+  </section>
+</main>
+
+<script type="text/javascript">
+  $(document).on("submit", "#post-form", function (e) {
+    e.preventDefault();
+    let input =  $("#link").val()
+    if(input){
+      $.ajax({
+        type: "POST",
+        url: "/create",
+        data: {
+          link: $("#link").val(),
+          csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+        },
+        success: function (data) {
+        let element = document.getElementById("section");
+        element.classList.remove("hidden");
+        element.classList.remove("error");
+          element.classList.add("url");
+          $('h2').html("localhost:4000/"+data)
+          //  depends on the server you are listening from: 8000, 4000, or a deployed sever
+        },
+      });
+    }else{
+      let element = document.getElementById("section");
+        console.log(element.classList)
+        element.classList.remove("hidden");
+          element.classList.add("error");
+          $('h2').html("please enter the link you want to shorten")
+          //  depends on the server you are listening from: 8000, 4000, or a deployed sever
+    }
+  });
+</script>
