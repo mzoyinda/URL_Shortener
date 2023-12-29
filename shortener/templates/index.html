@@ -17,22 +17,23 @@
       color: #111;
       background-color: #010B15;
     }
+
     main {
-      margin-top: 15%;
-      padding: 24px;
+      height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
-      
+      align-items: flex-start;
     }
     
     .container{
-      width: 100%;
+      width: 95vw;
+      margin-top: 15%;
       max-width: 680px;
+      height: 280px;
       border: 2.5px solid #330867;
       border-radius: 2.5px;
       box-shadow: 0 10px 20px rgba(17, 17, 17, 0.125),
-        0 5px 5px rgba(17, 17, 17, 0.25);
+      0 5px 5px rgba(17, 17, 17, 0.25);
       background-image: linear-gradient(to top, #F095D8 0%, #33234C 100%);
     }
 
@@ -40,24 +41,18 @@
       padding: 1rem;
       color: white;
     }
-    form{
-    height: 90px;
-    }
-
-    input,
-    button {
-      font-family: inherit;
-      line-height: inherit;
-      color: inherit;
-      border: 0;
-      padding: 1rem;
-    }
 
     input {
       box-sizing: border-box;
       width: 100%;
       background-color: #212138;
       color: #fff;
+      font-family: inherit;
+      line-height: inherit;
+      color: inherit;
+      border: 0;
+      padding: 1rem;
+      height: 105px;
     }
 
     .buttons {
@@ -72,6 +67,11 @@
       text-transform: capitalize;
       background-color: transparent;
       color: white;
+      font-family: inherit;
+      line-height: inherit;
+      border: 0;
+      padding: 1rem;
+      height: 55px;
       &:hover {
         background-color: rgba(255, 255, 255, 0.2);
       }
